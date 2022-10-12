@@ -76,7 +76,7 @@ const login = async (req, res) => {
 
 const getUserById = async (req, res) => {
   try {
-    const user = await User.findById({ _id: req.params.id });
+    const user = await User.find({ _id: req.params.id });
     res.status(200).json({
       message: "our user",
       data: user,
