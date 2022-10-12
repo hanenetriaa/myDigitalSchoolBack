@@ -46,8 +46,7 @@ const login = async (req, res) => {
         });
 
         RefreshTokens[refreshToken] = user._id;
-        // user.connected = true;
-        // user.save();
+
         const result = {
           user: user,
           email: user.email,
