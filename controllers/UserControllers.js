@@ -74,4 +74,19 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { register, login };
+const logout = async (req, res) => {
+    try {
+        const refreshToken = req.body.refreshToken;
+    
+        if (refreshToken in RefreshTokens) {
+          delete RefreshTokens[refreshToken];
+          res.json({ status: "succes", message: "Logout" });
+        }
+      } catch (error) {
+        res.status(400).json({
+          msg: "error" + error.message,
+        });
+      }
+};
+
+module.exports = { register, login, logout };
