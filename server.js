@@ -11,7 +11,7 @@ const db = require("./config/db");
 const { success, error } = require("consola");
 
 // appel de notre port & domain sur notre fichier .env
-const PORT = process.env.APP_PORT || 4000;
+const PORT = process.env.APP_PORT || 3000;
 const DOMAIN = process.env.APP_DOMAIN;
 //crée une application express
 const app = express();

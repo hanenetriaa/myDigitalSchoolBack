@@ -1,14 +1,14 @@
 /** @format */
 
 const { connect } = require("mongoose");
-const { sucess, error } = require("consola");
+const { success, error } = require("consola");
 
 const DB = process.env.APP_DB;
 
 const connectDB = async () => {
   try {
     await connect(DB);
-    sucess({
+    success({
       message: "connected succes",
       badge: true,
     });
