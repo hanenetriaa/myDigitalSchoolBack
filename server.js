@@ -3,12 +3,13 @@
 const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
+//appel module consola pour une meilleur visibilté des alerte sur le console log
+const { success, error } = require("consola");
+
 
 //appel de notre base de notre fichier db
 const db = require("./config/db");
-
-//appel module consola pour une meilleur visibilté des alerte sur le console log
-const { success, error } = require("consola");
+const useRouter  = require("./routes/UserRouter")
 
 // appel de notre port & domain sur notre fichier .env
 const PORT = process.env.APP_PORT || 3000;
@@ -24,7 +25,7 @@ app.use(express.json());
 il exécute également d'autres fonctionnalités telles que : convertir les données de formulaire en JSON, etc. 
 */
 app.use(express.urlencoded({ extended: false }));
-
+app.use("/", useRouter)
 //on excute notre application avec Listen for connections.
 app.listen(PORT, async () => {
   try {
@@ -39,3 +40,5 @@ app.listen(PORT, async () => {
     });
   }
 });
+
+
