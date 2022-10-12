@@ -18,3 +18,7 @@ try {
     
 }
 }
+
+
+module.exports ={register}
+
