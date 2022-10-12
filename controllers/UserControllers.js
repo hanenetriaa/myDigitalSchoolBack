@@ -49,6 +49,7 @@ const login = async (req, res) => {
         // user.connected = true;
         // user.save();
         const result = {
+          user: user,
           email: user.email,
           token: token,
           refreshToken: refreshToken,
