@@ -19,6 +19,16 @@ try {
 }
 }
 
+const login = async(req,res) => {
+try {
+    const {email,password} = req.body;
+    const user = await User.find({
+    })
+
+} catch (error) {
+    
+}
+}
 
 module.exports ={register}
 
