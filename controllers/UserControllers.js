@@ -89,4 +89,33 @@ const logout = async (req, res) => {
       }
 };
 
-module.exports = { register, login, logout };
+const refreshToken = async (req, res) => {
+    try {
+      var refreshToken = req.body.refreshToken;
+      if (refreshToken in RefreshTokens) {
+        const token = jwt.sign(
+          {
+            user: res.user,
+          },
+          SECRET,
+          {
+            expiresIn: "7d",
+          }
+        );
+        var refreshToken = jwt.sign({ id: req.user }, SECRET, {
+          expiresIn: 86400,
+        });
+        RefreshTokens[refreshToken] = req.user._id;
+        res.status(200).json({
+          accesstoken: token,
+          refreshToken: refreshToken,
+        });
+      }
+    } catch (error) {
+      res.status(400).json({
+        message: error.message,
+      });
+    }
+  };
+
+module.exports = { register, login, logout, refreshToken };
