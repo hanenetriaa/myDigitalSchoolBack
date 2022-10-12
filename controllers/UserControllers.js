@@ -88,6 +88,21 @@ const getUserById = async (req, res) => {
   }
 };
 
+getUserByNom = async (req, res) => {
+  try {
+    const nomUser = await User.find({ nom: req.query.nom });
+    res.status(200).json({
+      message: "nom du User",
+      data: nomUser,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: "error" + error.message,
+      data: User,
+    });
+  }
+};
+
 const logout = async (req, res) => {
   try {
     const user = await User.findById({ _id: req.params.id });
@@ -103,4 +118,4 @@ const logout = async (req, res) => {
   }
 };
 
-module.exports = { register, login, logout, getUserById };
+module.exports = { register, login, logout, getUserById, getUserByNom };
