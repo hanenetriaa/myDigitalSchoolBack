@@ -75,47 +75,18 @@ const login = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-    try {
-        const refreshToken = req.body.refreshToken;
-    
-        if (refreshToken in RefreshTokens) {
-          delete RefreshTokens[refreshToken];
-          res.json({ status: "succes", message: "Logout" });
-        }
-      } catch (error) {
-        res.status(400).json({
-          msg: "error" + error.message,
-        });
-      }
+  try {
+    const user = await User.findById({ _id: req.params.id });
+    user.connected = false;
+    await user.save();
+    res.status(200).json({
+      message: " logout with success",
+    });
+  } catch (error) {
+    res.status(400).json({
+      msg: "error" + error.message,
+    });
+  }
 };
 
-const refreshToken = async (req, res) => {
-    try {
-      var refreshToken = req.body.refreshToken;
-      if (refreshToken in RefreshTokens) {
-        const token = jwt.sign(
-          {
-            user: res.user,
-          },
-          SECRET,
-          {
-            expiresIn: "7d",
-          }
-        );
-        var refreshToken = jwt.sign({ id: req.user }, SECRET, {
-          expiresIn: 86400,
-        });
-        RefreshTokens[refreshToken] = req.user._id;
-        res.status(200).json({
-          accesstoken: token,
-          refreshToken: refreshToken,
-        });
-      }
-    } catch (error) {
-      res.status(400).json({
-        message: error.message,
-      });
-    }
-  };
-
-module.exports = { register, login, logout, refreshToken };
+module.exports = { register, login, logout };
